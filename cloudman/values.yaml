@@ -33,33 +33,11 @@ helmsman_config:
       namespace: cvmfs
     - name: cloudve/galaxy
       namespace: gvl
-      tplValues:
-        config:
-          oidc_backends_config.xml: |
-            <?xml version="1.0"?>
-            <OIDC>
-                <provider name="custos">
-                    <url>{{.Values.cloudlaunch.cloudlaunchServer.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchServer.ingress.hosts 0) }}/auth</url>
-                    <client_id>galaxy-auth</client_id>
-                    <client_secret>{{ .Values.galaxy_oidc_client_secret }}</client_secret>
-                    <redirect_uri>{{.Values.cloudlaunch.cloudlaunchServer.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchServer.ingress.hosts 0) }}/authnz/custos/callback</redirect_uri>
-                    <realm>master</realm>
-                </provider>
-            </OIDC>
       values:
-        config:
-          galaxy.yml:
-            galaxy:
-              enable_oidc: true
-              oidc_config_file: /galaxy/server/config/oidc_config.xml
-              oidc_backends_config_file: /galaxy/server/config/oidc_backends_config.xml
-          oidc_config.xml: |
-            <?xml version="1.0"?>
-            <OIDC>
-                <Setter Property="VERIFY_SSL" Value="False" Type="bool"/>
-                <Setter Property="REQUESTS_TIMEOUT" Value="3600" Type="float"/>
-                <Setter Property="ID_TOKEN_MAX_AGE" Value="3600" Type="float"/>
-            </OIDC>
+        image:
+          repository: vjalili/ubos
+          tag: ubos
+          pullPolicy: Always
         persistence:
           storageClass: nfs-provisioner
         postgresql:
