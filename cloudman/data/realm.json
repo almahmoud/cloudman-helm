@@ -1,3 +1,6 @@
+{{- $persistent_id_1 := include "keycloak_data.random_id" . }}
+{{- $persistent_id_2 := include "keycloak_data.random_id" . }}
+{{- $persistent_id_3 := include "keycloak_data.random_id" . }}
 [ {
   "id" : "master",
   "realm" : "master",
@@ -36,7 +39,7 @@
   "failureFactor" : 30,
   "roles" : {
     "realm" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "offline_access",
       "description" : "${role_offline-access}",
       "scopeParamRequired" : true,
@@ -44,7 +47,7 @@
       "clientRole" : false,
       "containerId" : "master"
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "admin",
       "description" : "${role_admin}",
       "scopeParamRequired" : false,
@@ -58,7 +61,7 @@
       "clientRole" : false,
       "containerId" : "master"
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "uma_authorization",
       "description" : "${role_uma_authorization}",
       "scopeParamRequired" : false,
@@ -66,7 +69,7 @@
       "clientRole" : false,
       "containerId" : "master"
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "create-realm",
       "description" : "${role_create-realm}",
       "scopeParamRequired" : false,
@@ -79,56 +82,56 @@
       "admin-cli" : [ ],
       "cloudman" : [ ],
       "broker" : [ {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "read-token",
         "description" : "${role_read-token}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_1 }}"
       } ],
       "master-realm" : [ {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-realm",
         "description" : "${role_manage-realm}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "query-users",
         "description" : "${role_query-users}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-events",
         "description" : "${role_view-events}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-clients",
         "description" : "${role_manage-clients}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-events",
         "description" : "${role_manage-events}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-clients",
         "description" : "${role_view-clients}",
         "scopeParamRequired" : false,
@@ -139,33 +142,33 @@
           }
         },
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "query-realms",
         "description" : "${role_query-realms}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "impersonation",
         "description" : "${role_impersonation}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-identity-providers",
         "description" : "${role_manage-identity-providers}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-users",
         "description" : "${role_view-users}",
         "scopeParamRequired" : false,
@@ -176,82 +179,82 @@
           }
         },
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-users",
         "description" : "${role_manage-users}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "create-client",
         "description" : "${role_create-client}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "query-groups",
         "description" : "${role_query-groups}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-authorization",
         "description" : "${role_manage-authorization}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-authorization",
         "description" : "${role_view-authorization}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-identity-providers",
         "description" : "${role_view-identity-providers}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "query-clients",
         "description" : "${role_query-clients}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-realm",
         "description" : "${role_view-realm}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_2 }}"
       } ],
       "account" : [ {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "view-profile",
         "description" : "${role_view-profile}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_3 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-account",
         "description" : "${role_manage-account}",
         "scopeParamRequired" : false,
@@ -262,15 +265,15 @@
           }
         },
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_3 }}"
       }, {
-        "id" : "{{ template "keycloak_data.random_id" }}",
+        "id" : "{{ include "keycloak_data.random_id" . }}",
         "name" : "manage-account-links",
         "description" : "${role_manage-account-links}",
         "scopeParamRequired" : false,
         "composite" : false,
         "clientRole" : true,
-        "containerId" : "{{ template "keycloak_data.random_id" }}"
+        "containerId" : "{{ $persistent_id_3 }}"
       } ]
     }
   },
@@ -285,14 +288,14 @@
   "otpPolicyPeriod" : 30,
   "otpSupportedApplications" : [ "FreeOTP", "Google Authenticator" ],
   "clients" : [ {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ $persistent_id_3 }}",
     "clientId" : "account",
     "name" : "${client_account}",
     "baseUrl" : "/auth/realms/master/account",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "defaultRoles" : [ "view-profile", "manage-account" ],
     "redirectUris" : [ "/auth/realms/master/account/*" ],
     "webOrigins" : [ ],
@@ -310,7 +313,7 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -325,7 +328,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -336,7 +339,7 @@
         "access.token.claim" : "true"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -351,7 +354,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -362,7 +365,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -377,7 +380,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -396,13 +399,13 @@
     "useTemplateScope" : false,
     "useTemplateMappers" : false
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "clientId" : "admin-cli",
     "name" : "${client_admin-cli}",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "redirectUris" : [ ],
     "webOrigins" : [ ],
     "notBefore" : 0,
@@ -419,7 +422,7 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -434,7 +437,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -449,7 +452,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -460,7 +463,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -471,7 +474,7 @@
         "access.token.claim" : "true"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -486,7 +489,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -505,13 +508,13 @@
     "useTemplateScope" : false,
     "useTemplateMappers" : false
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ $persistent_id_1 }}",
     "clientId" : "broker",
     "name" : "${client_broker}",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "redirectUris" : [ ],
     "webOrigins" : [ ],
     "notBefore" : 0,
@@ -528,7 +531,7 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -543,7 +546,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -558,7 +561,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -573,7 +576,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -584,7 +587,7 @@
         "access.token.claim" : "true"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -595,7 +598,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -614,14 +617,14 @@
     "useTemplateScope" : false,
     "useTemplateMappers" : false
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "clientId" : "cloudman",
     "rootUrl" : "https://{{ .Values.global.domain }}/cloudman",
     "adminUrl" : "https://{{ .Values.global.domain }}/cloudman",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "redirectUris" : [ "https://{{ .Values.global.domain }}/*" ],
     "webOrigins" : [ "https://{{ .Values.global.domain }}/" ],
     "notBefore" : 0,
@@ -638,7 +641,7 @@
     "fullScopeAllowed" : true,
     "nodeReRegistrationTimeout" : -1,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -653,7 +656,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -668,7 +671,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -683,7 +686,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -698,7 +701,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -709,7 +712,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -724,13 +727,13 @@
     "useTemplateScope" : false,
     "useTemplateMappers" : false
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ $persistent_id_2 }}",
     "clientId" : "master-realm",
     "name" : "master Realm",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "redirectUris" : [ ],
     "webOrigins" : [ ],
     "notBefore" : 0,
@@ -746,7 +749,7 @@
     "fullScopeAllowed" : true,
     "nodeReRegistrationTimeout" : 0,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -757,7 +760,7 @@
         "access.token.claim" : "true"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -768,7 +771,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -783,7 +786,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -798,7 +801,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -813,7 +816,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -832,14 +835,14 @@
     "useTemplateScope" : false,
     "useTemplateMappers" : false
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "clientId" : "security-admin-console",
     "name" : "${client_security-admin-console}",
     "baseUrl" : "/auth/admin/master/console/index.html",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "clientAuthenticatorType" : "client-secret",
-    "secret" : "{{ template "keycloak_data.random_id" }}",
+    "secret" : "{{ include "keycloak_data.random_id" . }}",
     "redirectUris" : [ "/auth/admin/master/console/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
@@ -856,7 +859,7 @@
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
     "protocolMappers" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "locale",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-attribute-mapper",
@@ -871,7 +874,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "full name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-full-name-mapper",
@@ -882,7 +885,7 @@
         "access.token.claim" : "true"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "email",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -897,7 +900,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "given name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -912,7 +915,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "role list",
       "protocol" : "saml",
       "protocolMapper" : "saml-role-list-mapper",
@@ -923,7 +926,7 @@
         "attribute.name" : "Role"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "username",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -938,7 +941,7 @@
         "jsonType.label" : "String"
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "family name",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-usermodel-property-mapper",
@@ -1089,7 +1092,7 @@
   "adminEventsDetailsEnabled" : false,
   "components" : {
     "org.keycloak.services.clientregistration.policy.ClientRegistrationPolicy" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Trusted Hosts",
       "providerId" : "trusted-hosts",
       "subType" : "anonymous",
@@ -1099,14 +1102,14 @@
         "client-uris-must-match" : [ "true" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Allowed Client Templates",
-      "providerId" : "allowed-client-templates",
+      "providerId" : "allowed-client-includes",
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : { }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Allowed Protocol Mapper Types",
       "providerId" : "allowed-protocol-mappers",
       "subType" : "anonymous",
@@ -1116,7 +1119,7 @@
         "consent-required-for-all-mappers" : [ "true" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Allowed Protocol Mapper Types",
       "providerId" : "allowed-protocol-mappers",
       "subType" : "authenticated",
@@ -1126,21 +1129,21 @@
         "consent-required-for-all-mappers" : [ "true" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Consent Required",
       "providerId" : "consent-required",
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : { }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Full Scope Disabled",
       "providerId" : "scope",
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : { }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Max Clients Limit",
       "providerId" : "max-clients",
       "subType" : "anonymous",
@@ -1149,35 +1152,35 @@
         "max-clients" : [ "200" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "Allowed Client Templates",
-      "providerId" : "allowed-client-templates",
+      "providerId" : "allowed-client-includes",
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : { }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "hmac-generated",
       "providerId" : "hmac-generated",
       "subComponents" : { },
       "config" : {
-        "kid" : [ "{{ template "keycloak_data.random_id" }}" ],
+        "kid" : [ "{{ include "keycloak_data.random_id" . }}" ],
         "secret" : [ "cxvP2v_6LPLK4dpHgzRqdE4UYhznnFm3kQhMKNQ48M8" ],
         "priority" : [ "100" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "aes-generated",
       "providerId" : "aes-generated",
       "subComponents" : { },
       "config" : {
-        "kid" : [ "{{ template "keycloak_data.random_id" }}" ],
+        "kid" : [ "{{ include "keycloak_data.random_id" . }}" ],
         "secret" : [ "DFoyFEK1Kw6chU-L4iEjyw" ],
         "priority" : [ "100" ]
       }
     }, {
-      "id" : "{{ template "keycloak_data.random_id" }}",
+      "id" : "{{ include "keycloak_data.random_id" . }}",
       "name" : "rsa-generated",
       "providerId" : "rsa-generated",
       "subComponents" : { },
@@ -1191,7 +1194,7 @@
   "internationalizationEnabled" : false,
   "supportedLocales" : [ ],
   "authenticationFlows" : [ {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "Handle Existing Account",
     "description" : "Handle what to do if there is existing account with same email/username like authenticated identity provider",
     "providerId" : "basic-flow",
@@ -1217,7 +1220,7 @@
       "autheticatorFlow" : true
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "Verify Existing Account by Re-authentication",
     "description" : "Reauthentication of existing account",
     "providerId" : "basic-flow",
@@ -1237,7 +1240,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "browser",
     "description" : "browser based authentication",
     "providerId" : "basic-flow",
@@ -1269,7 +1272,7 @@
       "autheticatorFlow" : true
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "clients",
     "description" : "Base authentication for clients",
     "providerId" : "client-flow",
@@ -1289,7 +1292,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "direct grant",
     "description" : "OpenID Connect Resource Owner Grant",
     "providerId" : "basic-flow",
@@ -1315,7 +1318,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "docker auth",
     "description" : "Used by Docker clients to authenticate against the IDP",
     "providerId" : "basic-flow",
@@ -1329,7 +1332,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "first broker login",
     "description" : "Actions taken after first broker login with identity provider account, which is not yet linked to any Keycloak account",
     "providerId" : "basic-flow",
@@ -1357,7 +1360,7 @@
       "autheticatorFlow" : true
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "forms",
     "description" : "Username, password, otp and other auth forms.",
     "providerId" : "basic-flow",
@@ -1377,7 +1380,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "registration",
     "description" : "registration flow",
     "providerId" : "basic-flow",
@@ -1392,7 +1395,7 @@
       "autheticatorFlow" : true
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "registration form",
     "description" : "registration form",
     "providerId" : "form-flow",
@@ -1424,7 +1427,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "reset credentials",
     "description" : "Reset credentials for a user if they forgot their password or something",
     "providerId" : "basic-flow",
@@ -1456,7 +1459,7 @@
       "autheticatorFlow" : false
     } ]
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "saml ecp",
     "description" : "SAML ECP Profile Authentication Flow",
     "providerId" : "basic-flow",
@@ -1471,13 +1474,13 @@
     } ]
   } ],
   "authenticatorConfig" : [ {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "create unique user config",
     "config" : {
       "require.password.update.after.registration" : "false"
     }
   }, {
-    "id" : "{{ template "keycloak_data.random_id" }}",
+    "id" : "{{ include "keycloak_data.random_id" . }}",
     "alias" : "review profile config",
     "config" : {
       "update.profile.on.first.login" : "missing"
