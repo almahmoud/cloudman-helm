@@ -148,14 +148,11 @@ cloudlaunch:
       hosts:
         - ~
       protocol: https
-keycloak:
-  persistence:
-    deployPostgres: false
 
+keycloak:
   keycloak:
     username: admin
     password: changeMe
-
     ingress:
       enabled: true
       # Add a null host to default to IP
@@ -164,8 +161,7 @@ keycloak:
       path: /auth
     persistence:
       deployPostgres: false
-      dbVendor: H2
-
+      dbVendor: H2 
     extraVolumes: |
       - name: realm-data
         configMap:
