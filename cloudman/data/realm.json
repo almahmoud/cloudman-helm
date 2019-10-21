@@ -966,7 +966,7 @@
     "clientAuthenticatorType": "client-secret",
     "secret" : "{{ .Values.galaxy_oidc_client_secret }}",
     "redirectUris": [
-        "{{.Values.cloudlaunch.cloudlaunchServer.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchServer.ingress.hosts 0) }}/authnz/custos/callback"
+        "{{.Values.cloudlaunch.cloudlaunchserver.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchserver.ingress.hosts 0) }}/authnz/custos/callback"
     ],
     "webOrigins": [],
     "notBefore": 0,

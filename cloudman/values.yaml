@@ -39,10 +39,10 @@ helmsman_config:
             <?xml version="1.0"?>
             <OIDC>
                 <provider name="custos">
-                    <url>{{.Values.cloudlaunch.cloudlaunchServer.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchServer.ingress.hosts 0) }}/auth</url>
+                    <url>{{.Values.cloudlaunch.cloudlaunchserver.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchserver.ingress.hosts 0) }}/auth</url>
                     <client_id>galaxy-auth</client_id>
                     <client_secret>{{ .Values.galaxy_oidc_client_secret }}</client_secret>
-                    <redirect_uri>{{.Values.cloudlaunch.cloudlaunchServer.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchServer.ingress.hosts 0) }}/authnz/custos/callback</redirect_uri>
+                    <redirect_uri>{{.Values.cloudlaunch.cloudlaunchserver.ingress.protocol }}://{{ .Values.global.domain | default (index .Values.cloudlaunch.cloudlaunchserver.ingress.hosts 0) }}/authnz/custos/callback</redirect_uri>
                     <realm>master</realm>
                 </provider>
             </OIDC>
@@ -98,7 +98,7 @@ cloudlaunch:
       - ~
     tls: []
 
-  cloudlaunchServer:
+  cloudlaunchserver:
     nameOverride: cloudman
     container_name: cloudman-server
     image:

@@ -26,9 +26,8 @@ Create chart name and version as used by the chart label.
 Rancher config settings
 */}}
 {{- define "cloudman.cluster_config" -}}
-{{/* Needs to be converted from json to yaml because the data is sent as json by cloudlaunch */}}
 {{- if .Values.cm_initial_cluster_data -}}
-{{ .Values.cm_initial_cluster_data | b64dec | fromJson | toYaml }}
+{{ .Values.cm_initial_cluster_data | b64dec }}
 {{- end -}}
 rancher_config:
   rancher_url: {{ .Values.rancher_url }}
