@@ -3,7 +3,8 @@
 # abort if any command fails
 set -e
 username="admin"
-password="{{ .Values.keycloak.keycloak.password }}"
+{{- $message := "You must specify a password for Keycloak with --set keycloak.keycloak.password='mypassword' or by setting the key in a custom values.yaml" }}
+password="{{ required $message .Values.keycloak.keycloak.password }}"
 
 # get auth token
 token=$(curl -k -s -d "client_id=admin-cli" -d "username=admin" -d "password=$password" -d "grant_type=password" \
