@@ -16,17 +16,17 @@ data:
 {{- if not (eq $key "charts") -}}
 {{- toYaml $entry | nindent 6 -}}
 {{- else -}}
-{{- range $chart := $entry }}
-{{- printf "- " | nindent 6 -}}
+{{- range $chartkey, $chart := $entry -}}
+{{- $chartkey | nindent 6 -}}:
 {{- if not $chart.tplValues -}}
-{{- toYaml $chart | indent 8 | trim -}}
+{{- toYaml $chart | trim | nindent 8 -}}
 {{- else -}}
 {{- if $chart.values -}}
-{{- $bare := omit $chart "values" "tplValues" }}
+{{- $bare := omit $chart "values" "tplValues" -}}
 {{- $concat := merge (fromYaml (tpl (toYaml $chart.tplValues) $)) ($chart.values) -}}
-{{- toYaml (set $bare "values" $concat) | indent 8 | trim }}
+{{- toYaml (set $bare "values" $concat) | trim | nindent 8 -}}
 {{- else -}}
-{{- tpl (toYaml $chart.tplValues) $ | indent 8 | trim -}}
+{{ tpl (toYaml $chart.tplValues) $ | trim | nindent 8 -}}
 {{- end -}}
 {{- end -}}
 {{- end -}}
