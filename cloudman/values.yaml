@@ -38,8 +38,9 @@ helmsman_config:
       namespace: gvl
       oidc_client:
         client_id: 'galaxy-auth'
-        # the client will be public if a client secret is not specified
-        client_secret: 'cf84xfps-npm5-hvmb-ntui4grybqrh'
+        # The client secret is required if the client is not public
+        public_client: false
+        #client_secret: 'cf84xfps-npm5-hvmb-ntui4grybqrh'
         redirect_uris:
           - '{{ include "cloudman.root_url" . }}/authnz/custos/callback'
       # tplValues get processed by the templating engine of the Cloudman helm chart

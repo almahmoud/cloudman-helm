@@ -187,8 +187,8 @@ then
     "enabled": true,
     "clientAuthenticatorType": "client-secret",
     "redirectUris": [{{ $redirect_uris }}],
-    {{- if $chart.oidc_client.client_secret }}
-    {{- $client_secret := tpl $chart.oidc_client.client_secret $ }}
+    {{- if $chart.oidc_client.public_client }}
+    {{- $client_secret := tpl (required "The client secret is required if the client is not public" $chart.oidc_client.client_secret) $ }}
     "publicClient": false,
     "secret": {{ $client_secret | quote }},
     {{- else }}
