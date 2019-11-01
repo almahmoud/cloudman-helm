@@ -2,11 +2,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "keycloak_data.name" . }}-realm-data
+  name: kc-init-script
   labels:
     app: {{ template "cloudman.name" . }}
     chart: {{ template "cloudman.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-{{ (tpl (.Files.Glob "data/*").AsConfig .) | indent 2 }}
+  update_keycloak.sh: |
+{{ tpl (.Files.Get "data/update_keycloak.sh") . | indent 4 }}

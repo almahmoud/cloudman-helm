@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # abort if any command fails
 set -e
@@ -7,23 +7,48 @@ password="{{ .Values.keycloak.keycloak.password }}"
 
 # get auth token
 token=$(curl -k -s -d "client_id=admin-cli" -d "username=admin" -d "password=$password" -d "grant_type=password" \
-       "https://{{ .Values.global.domain }}/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+       "{{ include "cloudman.root_url" . }}/auth/realms/master/protocol/openid-connect/token" | jq -r '.access_token')
+
+# Get current brute force protection status
+realm_protection=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master | \
+                   jq -r '.bruteForceProtected')
+
+if [ "$realm_protection" = "false" ]
+then
+      
+      # Add Brute Force Detection to Master realm
+      curl -k -X PUT -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master -d '{"bruteForceProtected": true, "failureFactor": 5, "maxFailureWaitSeconds": 1800, "minimumQuickLoginWaitSeconds": 300}'
+
+else
+      echo "Brute Force Protection is already on."
+fi
 
 # get admin user id
-user_id=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ .Values.global.domain }}/auth/admin/realms/master/users/?username=admin | \
+user_id=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/users/?username=admin | \
           jq -r '.[] | select(.username=="admin") | .id')
 
-# update admin user info
-updated_user=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ .Values.global.domain }}/auth/admin/realms/master/users/$user_id | \
-          jq -r '.firstName="{{ .Values.admin_firstname }}" | .lastName="{{ .Values.admin_lastname }}" | .email="{{ .Values.admin_email }}"')
+# get admin user email
+user_email=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/users/$user_id | \
+jq -r '.email')
 
-# Save new info
-curl -k -X PUT -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ .Values.global.domain }}/auth/admin/realms/master/users/$user_id -d "$updated_user"
+if [ "$user_email" = "null" ]
+then
+      # update admin user info
+      updated_user=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/users/$user_id | \
+                jq -r '.firstName="{{ .Values.admin_firstname }}" | .lastName="{{ .Values.admin_lastname }}" | .email="{{ .Values.admin_email }}"')
 
-# Add Brute Force Detection to Master realm
-curl -k -X PUT -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ .Values.global.domain }}/auth/admin/realms/master -d '{"bruteForceProtected": true, "failureFactor": 5, "maxFailureWaitSeconds": 1800, "minimumQuickLoginWaitSeconds": 300}'
+      # Save new info
+      curl -k -X PUT -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/users/$user_id -d "$updated_user"
+else
+      echo "The admin user already had an email address."
+fi
 
-cloudman_client=$(cat <<EOF
+cloudman_client=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/clients | \
+jq -r '.[] | select(.clientId=="cloudman")')
+
+if [ -z "$cloudman_client" ]
+then
+      cloudman_client=$(cat <<EOF
 {
     "clientId": "{{ .Values.cloudlaunch.cloudlaunchserver.extra_env.oidc_client_id }}",
     "rootUrl": "{{ include "cloudman.root_url" . }}/cloudman",
@@ -132,10 +157,13 @@ cloudman_client=$(cat <<EOF
     ]
 }
 EOF
-)
+      )
 
-# Add CloudMan client
-curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ .Values.global.domain }}/auth/admin/realms/master/clients -d "$cloudman_client"
+      # Add CloudMan client
+      curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" . }}/auth/admin/realms/master/clients -d "$cloudman_client"
+else
+      echo "The cloudman client already exists."
+fi
 
 {{- range $key, $chart := .Values.helmsman_config.charts -}}
 {{- if $chart.oidc_client -}}
@@ -148,7 +176,12 @@ curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $t
 {{- $redirect_uris = print $redirect_uris (tpl $uri $ | quote) }}
 {{- end }}
 
-{{ $key }}_client=$(cat <<EOF
+{{ $key }}_client=$(curl -k -s -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" $ }}/auth/admin/realms/master/clients | \
+jq -r '.[] | select(.clientId=="$client_id")')
+
+if [ -z "${{ $key }}_client" ]
+then
+      {{ $key }}_client=$(cat <<EOF
 {
     "clientId": {{ $client_id | quote }},
     "enabled": true,
@@ -178,9 +211,14 @@ curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $t
     ]
 }
 EOF
-)
+      )
 
-curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $token" https://{{ $.Values.global.domain }}/auth/admin/realms/master/clients -d "${{ $key }}_client"
+      # add new client
+      curl -k -X POST -H "Content-Type: application/json" -H "Authorization: bearer $token" {{ include "cloudman.root_url" $ }}/auth/admin/realms/master/clients -d "${{ $key }}_client"
+
+else
+      echo "The {{ $client_id }} client already exists."
+fi
+
 {{- end -}}
 {{- end -}}
-
