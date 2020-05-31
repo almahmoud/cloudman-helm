@@ -22,18 +22,17 @@ helmsman_config:
     jupyter:
       repo: jupyterhub
       chart: jupyterhub
-      macros: |
-          {%- macro random_int(len) -%}
-            {%- for _ in range(len) -%}
-              {{ range(10) | random }}
-            {%- endfor -%}
-          {%- endmacro -%}
-          {%- macro random_alphanumeric(len) -%}
-            {%- for _ in range(len) -%}
-              {{ ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",0,1,2,3,4,5,6,7,8,9] | random }}
-            {%- endfor -%}
-          {%- endmacro -%}
-      values:
+      display_name: Jupyter
+      summary: JupyterHub brings the power of notebooks to groups of users
+      description: |
+        <a href="https://jupyter.org/">JupyterHub</a> can be used to access your personal
+        <a href="http://ipython.org/notebook.html">IPython Notebook</a>.
+        IPython Notebook is a web-based interactive computational environment where you can
+        combine code execution, text, mathematics, plots and rich media into a single document.
+      maintainers: JupyterHub
+      info_url: https://jupyter.org/
+      icon_url: https://jupyter.org/assets/hublogo.svg
+      template:
         ingress:
           enabled: true
           path: '/{{ context.project}}/jupyterhub'
@@ -45,25 +44,22 @@ helmsman_config:
       repo: cloudve
       chart: galaxy
       chart_version: 3.3.0
-      default_context:
+      display_name: Galaxy
+      summary: Galaxy is an open, web-based platform for biomedical research
+      description: |
+        <a href="https://galaxyproject.org/">Galaxy</a> is an open, web-based platform for
+        accessible, reproducible, and transparent computational biomedical research.
+      maintainers: Galaxy Team
+      info_url: https://galaxyproject.org/
+      icon_url: https://galaxyproject.org/images/galaxy-logos/galaxy_project_logo_square.png
+      context:
         oidc_client_secret: '{{ .Values.oidc_clients.galaxy.client_secret}}'
         domain: '{{ .Values.global.domain }}'
         influxdb_url: '{{ include "cloudman.influxdb_url_cluster" . }}'
         influxdb_database: '{{ include "cloudman.influxdb_database" . }}'
         influxdb_username: '{{ .Values.influxdb.setDefaultUser.username }}'
         influxdb_password: '{{ .Values.influxdb.setDefaultUser.password }}'
-      macros: |
-          {%- macro random_int(len) -%}
-            {%- for _ in range(len) -%}
-              {{ range(10) | random }}
-            {%- endfor -%}
-          {%- endmacro -%}
-          {%- macro random_alphanumeric(len) -%}
-            {%- for _ in range(len) -%}
-              {{ ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",0,1,2,3,4,5,6,7,8,9] | random }}
-            {%- endfor -%}
-          {%- endmacro -%}
-      values: |
+      templates: |
         configs:
           oidc_config.xml: |
             <?xml version="1.0"?>
