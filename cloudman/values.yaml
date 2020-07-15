@@ -26,6 +26,11 @@ helmsman_config:
        url: https://jupyterhub.github.io/helm-chart/
      - name: alex
        url: https://raw.githubusercontent.com/almahmoud/helm-charts/nextclouddev/
+  charts:
+    proxyinjector:
+      name: cloudve/proxyinjector
+      namespace: cloudman
+      create_namespace: false
   install_templates:
     projman:
       repo: alex
@@ -1108,9 +1113,15 @@ helmsman_config:
       icon_url: https://www.r-project.org/Rlogo.png
       screenshot_url: assets/images/screenshot_rstudio.png
       context:
+        oidc_client_id: '{{ .Values.oidc_clients.gatekeeper.client_id }}'
+        oidc_client_secret: '{{ .Values.oidc_clients.gatekeeper.client_secret }}'
         starting_dir: "/gvl"
         domain: '{{ .Values.global.domain }}'
       template: |
+        oidc:
+          client_id: "{{context.oidc_client_id}}"
+          client_secret: {{context.oidc_client_secret}}
+          discovery_url: https://{{context.domain}}/auth/realms/master
         ingress:
           access_path: "{{context.project.access_path}}/rstudio/"
           hosts:
@@ -1166,8 +1177,8 @@ helmsman_config:
       icon_url: https://upload.wikimedia.org/wikipedia/commons/8/82/Gnu-bash-logo.svg
       screenshot_url: assets/images/screenshot_terminal.png
       context:
-        oidc_client_id: '{{ .Values.oidc_clients.terminalman.client_id }}'
-        oidc_client_secret: '{{ .Values.oidc_clients.terminalman.client_secret }}'
+        oidc_client_id: '{{ .Values.oidc_clients.gatekeeper.client_id }}'
+        oidc_client_secret: '{{ .Values.oidc_clients.gatekeeper.client_secret }}'
         domain: '{{ .Values.global.domain }}'
         starting_dir: "/gvl"
       template: |
@@ -1186,9 +1197,6 @@ helmsman_config:
               paths:
                 - {{context.project.access_path}}/terminalman
             {%- endif %}
-
-        proxyinjector:
-          nameOverride: {{context.project.namespace}}-terminalman-proxy
 
         persistence:
           enabled: false
@@ -1220,6 +1228,7 @@ rancher_project_id:
 global:
     domain: 192.168.99.100
 
+<<<<<<< HEAD
 # This feature can be used to force the creation of OIDC clients
 # with the cloudman deployment. However, projman-helm will now handles
 # the client creation for the standard project isolation
@@ -1246,7 +1255,6 @@ oidc_clients: {}
   #   #client_secret:
   #   redirect_uris:
   #     - '{{ include "cloudman.root_url" . }}/*'
-
 
 cloudlaunch:
   nameOverride: cloudman
