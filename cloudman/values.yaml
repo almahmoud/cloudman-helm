@@ -1,6 +1,7 @@
 # CloudMan has the same dependencies and structure as cloudlaunch,
 # and only differs in the container images.
 
+
 admin_firstname: "CloudMan"
 admin_lastname: "Admin"
 admin_email: "cloudman@someplace.org"
