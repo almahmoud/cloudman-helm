@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
            persist-credentials: false
-      - uses: cloudve/helm-ci@master
+      - uses: almahmoud/helm-ci@master
         with:
           chart-name: cloudman
           charts-repo: cloudve/helm-charts
